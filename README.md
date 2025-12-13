@@ -72,4 +72,4 @@ Quit=C-Q
 
 ---
 
-by izzy, with team oculine. some parts made with claude sonnet 4.5 by antropic. https://claude.ai\.
+by izzy, with team oculine. some parts made with claude sonnet 4.5 by antropic. https://claude.ai
