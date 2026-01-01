@@ -2,6 +2,8 @@
 
 minimal text editor. made it because i can.
 
+**version 1**
+
 ## building
 
 you need:
@@ -12,6 +14,12 @@ compile:
 ```bash
 g++ -std=c++17 serene.cpp -lncurses -o serene
 ```
+
+optionally, disable flow control if you want C-S/C-Q to work in other apps:
+```bash
+stty -ixon
+```
+(serene doesn't need this since it uses ESC commands)
 
 install wherever:
 ```bash
@@ -30,18 +38,42 @@ sudo cp serene /usr/local/bin/
 
 ## keybinds
 
+### global
+- `ESC` - toggle command mode
 - `^E` - switch between browser and editor
-- `^N` - new file (prompts for name)
-- `^O` - previous tab
-- `^P` - next tab  
-- `^X` - close tab
-- `^S` - save
-- `^Q` - save and quit
 
-browser shows:
-- `---EDIT---` when you're editing
-- `---OPEN---` when you're browsing files
-- `---NEW---` when creating new file
+### command mode (ESC then !)
+- `!s` - save file
+- `!q` - save and quit
+- `!n` - new file (prompts for name)
+- `!x` - close current tab
+- `!p` - next tab
+- `!o` - previous tab
+
+### file browser
+- arrow keys - navigate
+- enter - open file or expand/collapse directory
+- `h` or `H` - toggle hidden files visibility
+
+### editor
+- arrow keys - move cursor
+- normal typing works
+- enter - new line
+- backspace - delete
+
+## features
+
+- **tree view** - hierarchical directory browser with expandable folders
+- **tabs** - open multiple files, switch between them
+- **auto-save on quit** - never lose work
+- **hidden files toggle** - press H in browser to show/hide dotfiles
+- **modified indicator** - `*` shows unsaved changes
+- **configurable** - edit `~/.config/serene.ini`
+
+browser modes:
+- `---EDIT---` - you're editing a file
+- `---OPEN---` - browsing files (focus with ^E)
+- `[H]` - hidden files visible
 
 ## config
 
@@ -54,22 +86,22 @@ ForegroundC=#ffffff
 BrowserWidth=20
 
 [keys]
-NextTab=C-P
-PrevTab=C-O
-CloseTab=C-X
-NewFile=C-N
 ToggleBrowser=C-E
-Save=C-S
-Quit=C-Q
 ```
 
 ## notes
 
-- file browser only shows non-hidden files (no dotfiles)
-- saves on quit automatically
-- tabs remember cursor position
-- compiled binary is like 50kb
+- directories shown with `/` suffix
+- depth shown with `|` prefix
+- folders sorted before files, both alphabetical
+- file browser skips dotfiles by default (toggle with H)
+- ESC delay set to 25ms for instant response
+- compiled binary is ~50kb
+
+## why
+
+vim's command mode without vim's bullshit.
 
 ---
 
-some parts made with claude sonnet 4.5 by antropic. https://claude.ai
+by oculine. design by izzy. some elements made with claude sonnet 4.5 by anthropic. https://claude.ai
